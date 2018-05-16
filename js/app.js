@@ -27,9 +27,115 @@ function shuffle(array) {
     return array;
 }
 
-// add eventlistener to open cards
+// Grab the div with an id of root
+const game = document.getElementById('ul');
 
-deck.addEventListener('click', function() {.....})
+// Create a section with a class of grid
+const grid = document.createElement('section');
+grid.setAttribute('class', 'grid');
+
+// Append the grid section to the game div
+game.appendChild(grid);
+
+// eventListener
+
+deck.addEventListener('click', function(event) {
+    // The event target is clicked item
+    let clicked = event.target;
+
+    // Do not allow to select the grid section
+    if (clicked.nodeName === 'section') {
+        return;
+    }
+
+    // Add selected class
+    clicked.classList.add('selected');
+});
+
+if (
+    clicked.nodeName === 'section' ||
+    clicked === previousTarget ||
+    clicked.parentNode.classList.contains('selected') ||
+    clicked.parentNode.classList.contains('match')
+) {
+    return;
+}
+
+deck.addEventListener('click', function (event) {
+    if (count < 2) {
+        count++;
+        if (count === 1) {
+            firstGuess = clicked.parentNode.dataset.name;
+            console.log(firstGuess);
+            clicked.parentNode.classList.add('selected');
+        } else {
+            secondGuess = clicked.parentNode.dataset.name;
+            console.log(secondGuess);
+            clicked.parentNode.classList.add('selected');
+        }
+        if (firstGuess && secondGuess) {
+            if (firstGuess === secondGuess) {
+                setTimeout(match, delay);
+            }
+            setTimeout(resetGuesses, delay);
+        }
+    previousTarget = clicked;
+    }
+});
+
+// Only allow two cards to be selected
+let count = 0;
+
+if (count < 2) {
+    count++;
+    clicked.classList.add('selected');
+}
+
+// Determine if two cards are a match
+let firstGuess = '';
+let secondGuess = '';
+let count = 0;
+let previousTarget = null;
+let delay = 1200;
+
+const match = () => {
+    var selected = document.querySelectorAll('.selected');
+    selected.forEach(card => {
+        card.classList.add('match');
+    });
+}
+
+const resetGuesses = () => {
+    firstGuess = '';
+    secondGuess = '';
+    count = 0;
+
+    var selected = document.querySelectorAll('.selected');
+    selected.forEach(card => {
+        card.classList.remove('selected');
+    });
+}
+
+// add front and back elements
+gameGrid.forEach(item => {
+    // Create card element
+    const card = document.createElement('div');
+    card.classList.add('deck');
+    card.dataset.name = item.name;
+
+    // open card
+    const open = document.createElement('div');
+    open.classList.add('open');
+
+    // back card
+    const back = document.createElement('div');
+    back.classList.add('card');
+
+    grid.appendChild(deck);
+    grid.appendChild(open);
+    card.appendChild(back);
+});
+
 
 /*
  * set up the event listener for a card. If a card is clicked:

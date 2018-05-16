@@ -66,7 +66,6 @@ h1 {
 }
 
 .deck .card.open {
-    /*transform: rotateY(0);*/
     transform: rotateY(180deg);
     transform-style: preserve-3d;
     transition: 0.3s;
@@ -81,6 +80,7 @@ h1 {
 .deck .card.match {
     cursor: default;
     background: #02ccba;
+    animation: match 1.5s 1;
     font-size: 33px;
 }
 
@@ -109,4 +109,8 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.selected {
+    border: 4px solid blue;
 }

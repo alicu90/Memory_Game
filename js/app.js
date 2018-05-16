@@ -2,8 +2,17 @@
  * Create a list that holds all of your cards
  */
 
- const cards = ['fa-diamon','fa-diamon','fa-paper-plane-o','fa-paper-plane-o','fa-anchor','fa-anchor','fa-bolt','fa-bolt','fa-cube','fa-cube','fa-leaf','fa-leaf','fa-bicycle','fa-bicycle','fa-bomb','fa-bomb'];
- 
+ let list = ['fa-diamon','fa-diamon','fa-paper-plane-o','fa-paper-plane-o','fa-anchor','fa-anchor','fa-bolt','fa-bolt','fa-cube','fa-cube','fa-leaf','fa-leaf','fa-bicycle','fa-bicycle','fa-bomb','fa-bomb'];
+ let cardFa = document.querySelectorAll('.card .fa')
+ let deck = document.getElementsByClassName('deck');
+ let card = document.querySelectorAll('.card');
+ console.log(card);
+
+ let cardArray = [...card];
+
+ //any array for the cards that the user opens 
+let openCards = [];
+let matchedCards = [];
 
 /*
  * Display the cards on the page
@@ -27,114 +36,68 @@ function shuffle(array) {
     return array;
 }
 
-// Grab the div with an id of root
-const game = document.getElementById('ul');
-
-// Create a section with a class of grid
-const grid = document.createElement('section');
-grid.setAttribute('class', 'grid');
-
-// Append the grid section to the game div
-game.appendChild(grid);
-
-// eventListener
-
-deck.addEventListener('click', function(event) {
-    // The event target is clicked item
-    let clicked = event.target;
-
-    // Do not allow to select the grid section
-    if (clicked.nodeName === 'section') {
-        return;
-    }
-
-    // Add selected class
-    clicked.classList.add('selected');
-});
-
-if (
-    clicked.nodeName === 'section' ||
-    clicked === previousTarget ||
-    clicked.parentNode.classList.contains('selected') ||
-    clicked.parentNode.classList.contains('match')
-) {
-    return;
+function displayCards() {
+    this.classList.add('open');
+    this.classList.add('show');
+    this.classList.add('stop');
+    openCards.push(this);
 }
 
-deck.addEventListener('click', function (event) {
-    if (count < 2) {
-        count++;
-        if (count === 1) {
-            firstGuess = clicked.parentNode.dataset.name;
-            console.log(firstGuess);
-            clicked.parentNode.classList.add('selected');
+function pushing() {
+    if (openCards.length == 2) {
+        if (openCards[0].innerHTML != openCards[1].innerHTML) {
+           unmatching();
         } else {
-            secondGuess = clicked.parentNode.dataset.name;
-            console.log(secondGuess);
-            clicked.parentNode.classList.add('selected');
+            matching();
         }
-        if (firstGuess && secondGuess) {
-            if (firstGuess === secondGuess) {
-                setTimeout(match, delay);
-            }
-            setTimeout(resetGuesses, delay);
-        }
-    previousTarget = clicked;
     }
-});
-
-// Only allow two cards to be selected
-let count = 0;
-
-if (count < 2) {
-    count++;
-    clicked.classList.add('selected');
 }
 
-// Determine if two cards are a match
-let firstGuess = '';
-let secondGuess = '';
-let count = 0;
-let previousTarget = null;
-let delay = 1200;
-
-const match = () => {
-    var selected = document.querySelectorAll('.selected');
-    selected.forEach(card => {
-        card.classList.add('match');
-    });
+function matching() {
+    openCards[0].classList.toggle('match');
+    //penCards[0].classList.add('open', 'show');
+    openCards[1].classList.toggle('match'); 
+//penCards[1].classList.add('open','show');
+    matchedCards.push(openCards);
+  openCards=[];
 }
 
-const resetGuesses = () => {
-    firstGuess = '';
-    secondGuess = '';
-    count = 0;
+function unmatching() {
+    setTimeout(function (){ 
+    openCards[0].classList.remove('open', 'show');
+    openCards[1].classList.remove('open', 'show');
+    openCards[0].classList.remove('stop');
+    openCards[1].classList.remove('stop');
+   openCards=[];
+    },1200);
 
-    var selected = document.querySelectorAll('.selected');
-    selected.forEach(card => {
-        card.classList.remove('selected');
-    });
 }
 
-// add front and back elements
-gameGrid.forEach(item => {
-    // Create card element
-    const card = document.createElement('div');
-    card.classList.add('deck');
-    card.dataset.name = item.name;
 
-    // open card
-    const open = document.createElement('div');
-    open.classList.add('open');
+for (let j = 0; j < cardArray.length; j++) {
+    cardArray[j].addEventListener('click', displayCards);
+    cardArray[j].addEventListener('click',pushing);
+};
+console.log(openCards);
 
-    // back card
-    const back = document.createElement('div');
-    back.classList.add('card');
+//show errors to user
+const displayErrors = (err) => {
+    closeErrors();
+    const errorMessage = '';
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-div';
+    errorDiv.innerHTML = errorMessage;
+    scorePanel.parentNode.insertBefore(errorDiv, scorePanel.nextSibling);
+    const closeButton = document.querySelector('.close');
+    closeButton.addEventListener('click', closeErrors);
+  }
+  
+  // removes the error message
+  const closeErrors = () => {
+    const errorDiv = document.querySelector('.error-div');
+    errorDiv ? errorDiv.remove() : null;
+  }
 
-    grid.appendChild(deck);
-    grid.appendChild(open);
-    card.appendChild(back);
-});
 
 
 /*

@@ -27,6 +27,13 @@ function shuffle(array) {
     return array;
 }
 
+//Open cards if them are clicked
+function openCard(x) {
+     x.target.classList.add("open");
+     const clickedCardIconClass = x.target.childNodes[0].getAttribute("class");
+     openedCards.push(clickedCardIconClass);
+}
+
 
 /*
  * set up the event listener for a card. If a card is clicked:

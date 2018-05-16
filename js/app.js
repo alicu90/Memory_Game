@@ -27,7 +27,9 @@ function shuffle(array) {
     return array;
 }
 
+// add eventlistener to open cards
 
+deck.addEventListener('click', function() {.....})
 
 /*
  * set up the event listener for a card. If a card is clicked:

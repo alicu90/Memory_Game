@@ -71,6 +71,7 @@ h1 {
     transition: 0.3s;
     background: #02b3e4;
     cursor: default;
+    font-size:23px;
 }
 
 .deck .card.show {
@@ -80,8 +81,14 @@ h1 {
 .deck .card.match {
     cursor: default;
     background: #02ccba;
+    transform: rotateY(-180deg);
     animation: match 1.5s 1;
     font-size: 33px;
+}
+
+.no_match {
+    background-color: red;
+    font-size: 23px;
 }
 
 /*

@@ -36,11 +36,11 @@ function createDeck() {
         newlistItem.className = "card";
         // create new <i> element
         const cardIconItem = document.createElement('i');
-        cardIconItem.className = card;
+        cardIconItem.className = "card";
         // append <i> element to the <li> element
-        listItem.appendChild(cardIconItem);
+        newlistItem.appendChild(cardIconItem);
         // append <li> element to the Deck
-        deck.appendChild(listItem);
+        deck.appendChild(newlistItem);
     }
 }
 

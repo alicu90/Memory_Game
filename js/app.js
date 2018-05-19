@@ -1,17 +1,189 @@
 /*
  * Create a list that holds all of your cards
  */
+const pictures = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+let cards = [];
 
- const list = ['fa-diamon','fa-diamon','fa-paper-plane-o','fa-paper-plane-o','fa-anchor','fa-anchor','fa-bolt','fa-bolt','fa-cube','fa-cube','fa-leaf','fa-leaf','fa-bicycle','fa-bicycle','fa-bomb','fa-bomb'];
- const deck = document.querySelector('.deck');
- const cards = document.querySelectorAll('.card');
-
-
- //any array for the cards that the user opens 
 let openedCards = [];
-let previousOpenedCard = null;
 let matchedCards = [];
-console.log(list);
+let totalTime = 0;
+
+const cardsContainer = document.querySelector(".deck");
+const secondsContainer = document.querySelector("#seconds");
+const minutesContainer = document.querySelector("#minutes");
+const hoursContainer = document.querySelector("#hours");
+/*
+ * Timer [ Start ] 
+ */
+function startTimer() {
+
+    // Start Incrementer
+    incrementer = setInterval(function() {
+
+        // Add totalTime by 1
+        totalTime += 1;
+
+        // Convert Total Time to H:M:S
+        calculateTime(totalTime);
+
+        // Change the current time values
+        secondsContainer.innerHTML = seconds;
+        minutesContainer.innerHTML = minutes;
+        hoursContainer.innerHTML   = hours;
+
+    }, 1000);
+    
+}
+
+/*
+ * Timer [ Calculate Time ] 
+ */
+function calculateTime(totalTime) {
+    hours   = Math.floor( totalTime / 60 / 60);
+    minutes = Math.floor( (totalTime / 60) % 60);
+    seconds = totalTime % 60;
+}
+
+/*
+ * Timer [ Stop ] 
+ */
+function stopTimer() {
+    // Stop Timer
+    clearInterval(incrementer);
+}
+
+// Start the game
+function init() {
+    const picturesShuffled = shuffle(pictures);
+    for(let i = 0; i < pictures.length; i++) {
+        const card = document.createElement("li");
+        card.classList.add("card");
+        card.innerHTML = `<i class="${pictures[i]}"></i>`;
+        cardsContainer.appendChild(card);
+    
+        // Click event for each element
+        click(card);
+    }
+}
+
+// Event Listener
+function click(card) {
+
+    // Click Event
+    card.addEventListener("click", function() {
+        
+        const currentCard = this;
+        const previousCard = openedCards[0];
+
+        // We have opened first opened card
+        if(openedCards.length === 1) {
+
+            card.classList.add("open", "show", "disable");
+            openedCards.push(this);
+
+            // We compare 2 opened cards!
+            compare(currentCard, previousCard);
+
+        } else {
+        // We don't have opened cards
+            currentCard.classList.add("open", "show", "disable");
+            openedCards.push(this);
+        }
+        
+    });
+}
+
+// Matching cards
+function compare(currentCard, previousCard) {
+
+    if(currentCard.innerHTML === previousCard.innerHTML) {
+                
+        // Cards matched
+        currentCard.classList.add("match");
+        previousCard.classList.add("match");
+
+        matchedCards.push(currentCard, previousCard);
+
+        openedCards = [];
+
+        // The game finished?
+        isOver();
+
+    } else {
+        
+        // Wait 1000ms then, do this!
+        setTimeout(function() {
+            currentCard.classList.remove("open", "show", "disable");
+            previousCard.classList.remove("open", "show", "disable");
+            
+        }, 1000);
+
+        openedCards = [];
+        
+    }
+
+    // Add move
+    addMove();
+
+}
+
+// Check if the game is finished
+function isOver() {
+    if(matchedCards.length === pictures.length) {
+        alert("GAME COMPLETED!")
+    }
+}
+
+// adding the moves to the game
+const movesContainer = document.querySelector(".moves");
+let moves = 0;
+movesContainer.innerHTML = 0;
+function addMove() {
+    moves++;
+    movesContainer.innerHTML = moves;
+
+    // Rating
+    rating();
+}
+
+// Rating / Stars
+const starsContainer = document.querySelector(".stars");
+const star = `<li><i class="fa fa-star"></i></li>`;
+starsContainer.innerHTML = star + star + star;
+function rating() {
+
+    if( moves < 12) {
+        starsContainer.innerHTML = star + star + star;
+    } else if( moves < 18) {
+        starsContainer.innerHTML = star + star;
+    } else {
+        starsContainer.innerHTML = star;
+    }
+}
+
+
+// Restart the game
+const restartBtn = document.querySelector(".restart");
+restartBtn.addEventListener("click", function() {
+    timerDiv.textContent = '00:00';
+    window.clearInterval(globalTimer);
+    // Delete elements
+    cardsContainer.innerHTML = "";
+
+    // Create new cards
+    init();
+
+    // Reset
+    matchedCards = [];
+    moves = 0;
+    movesContainer.innerHTML = moves;
+    starsContainer.innerHTML = star + star + star;
+});
+
+// Start the game for first time
+init();
+
+shuffle(cards);
 
 /*
  * Display the cards on the page
@@ -19,53 +191,6 @@ console.log(list);
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
-// call the function which create the deck
-createDeck();
-
-// function declaration that shuffles the icon cards and places them in the DOM in random order
-function createDeck() {
-    const fragment = document.createDocumentFragment();
-
-    let shuffledList = shuffle(list);
-
-    // create <li> and <i> DOM elements
-    for(icon of shuffledList) {
-        // create new <li> element
-        const newlistItem = document.createElement('li');
-        newlistItem.className = "card";
-        // create new <i> element
-        const cardIconItem = document.createElement('i');
-        cardIconItem.className = "card";
-        // append <i> element to the <li> element
-        newlistItem.appendChild(cardIconItem);
-        // append <li> element to the Deck
-        deck.appendChild(newlistItem);
-    }
-}
-
-// add event listener to cards
-deck.addEventListener('click', function(evt) {
-    // check the target if it is <li> element
-    if (evt.target.nodeName === 'li') {
-        // check that the card is not already matched
-        if (!evt.target.classList.contains("match")) {
-            if (openedCards.length < 2) {
-                if(previousOpenedCard === null) {
-                    previousOpenedCard = evt.target;
-                    openCards(evt);
-                    check(evt);
-                }
-                // open cards if the previously one is not opened
-                if (previousOpenedCard != evt.target) {
-                    previousOpenedCard = null;
-                    openCards(evt);
-                    check(evt);
-                }
-            }
-        }
-    }
-});
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -81,34 +206,6 @@ function shuffle(array) {
 
     return array;
 }
-
-function openCards(x) {
-    x.target.classList.add("open");
-    const clickedCardIconClass = x.target.childNodes[0].getAttribute("class");
-    openedCards.push(clickedCardIconClass);
-}
-
-// check if cards match
-function check (x) {
-    if (openedCards.length == 2) {
-        let cardOpen = document.querySelectorAll('.open');
-        cardOpen[0].classList.add("match");
-        cardOpen[1].classList.add('match');
-        cardOpen[0].classList.remove("open");
-        cardOpen[1].classList.remove("open");
-        openedCards.splice(0, 2);
-    } else {
-        let cardOpen = document.querySelectorAll('.open');
-        cardOpen[0].classList.add("no_match");
-        cardOpen[1].classList.add("no_match");
-        setTimeout(function() {
-            cardOpen[0].classList.remove("open", "no_match");
-            cardOpen[1].classList.remove("open", "no_match");
-            openedCards.splice(0, 2);
-        }, 1000);
-    }
-}
-
 
 
 /*

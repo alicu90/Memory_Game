@@ -1,5 +1,7 @@
 # Memory Game Project
 
+This is the second project from Udacity FEND Nanodegree. This project represents a game with 8 pairs of cards with different icons. 
+
 ## Table of Contents
 
 * [Instructions](#instructions)
@@ -7,14 +9,21 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+* Click two cards
+* Keep the cards in memory
+* Match the cards with less moves and time
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
+This project represents the knowledge gained in second part of Nanodegree, but the game can be more interactive and improved.
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## How the project was built
+* I used the basic informations and code from Udacity Sample Project and I manipulated the DOM and altereted the HTML
+* I created the deck of 16 cards
+* The cards are shuffled every time you start new game
+* I created the counter for rating and moves
+* I created the timer
+* I added effects when the cards are matched
+* I used the pop-up modal to congrats the user when finish the game
+

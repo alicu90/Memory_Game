@@ -6,51 +6,34 @@ let cards = [];
 
 let openedCards = [];
 let matchedCards = [];
-let totalTime = 0;
 
 const cardsContainer = document.querySelector(".deck");
-const secondsContainer = document.querySelector("#seconds");
-const minutesContainer = document.querySelector("#minutes");
-const hoursContainer = document.querySelector("#hours");
+const timerContainer = document.querySelector(".timer");
+let liveTimer,
+    totalSeconds = 0;
+
+timerContainer.innerHTML = totalSeconds;
+
 /*
  * Timer [ Start ] 
  */
 function startTimer() {
 
     // Start Incrementer
-    incrementer = setInterval(function() {
+    liveTimer = setInterval(function() {
 
         // Add totalTime by 1
-        totalTime += 1;
+        totalSeconds++;
 
-        // Convert Total Time to H:M:S
-        calculateTime(totalTime);
-
-        // Change the current time values
-        secondsContainer.innerHTML = seconds;
-        minutesContainer.innerHTML = minutes;
-        hoursContainer.innerHTML   = hours;
+        // Update the HTML
+        timerContainer.innerHTML = totalSeconds;
 
     }, 1000);
     
 }
 
-/*
- * Timer [ Calculate Time ] 
- */
-function calculateTime(totalTime) {
-    hours   = Math.floor( totalTime / 60 / 60);
-    minutes = Math.floor( (totalTime / 60) % 60);
-    seconds = totalTime % 60;
-}
-
-/*
- * Timer [ Stop ] 
- */
-function stopTimer() {
-    // Stop Timer
-    clearInterval(incrementer);
-}
+// First Click
+let isFirstClick = false;
 
 // Start the game
 function init() {
@@ -72,6 +55,13 @@ function click(card) {
     // Click Event
     card.addEventListener("click", function() {
         
+        if(isFirstClick) {
+            // Start timer
+            startTimer();
+            // Change value of First Click
+            isFirstClick = false;
+        }
+
         const currentCard = this;
         const previousCard = openedCards[0];
 
@@ -131,6 +121,9 @@ function compare(currentCard, previousCard) {
 function isOver() {
     if(matchedCards.length === pictures.length) {
         alert("GAME COMPLETED!")
+
+        // Stop timer
+        stopTimer();
     }
 }
 
@@ -178,6 +171,9 @@ restartBtn.addEventListener("click", function() {
     moves = 0;
     movesContainer.innerHTML = moves;
     starsContainer.innerHTML = star + star + star;
+    // Reset timer
+    totalSeconds = 0;
+    timerContainer.innerHTML = totalSeconds;
 });
 
 // Start the game for first time

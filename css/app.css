@@ -126,3 +126,16 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.modal {
+  display: none;
+  position: absolute;
+}
+
+.modal .inner {
+  width: 50%;
+  margin: 10% auto;
+  padding: 2em;
+  text-align: center;
+  box-shadow: 0px 0px 4px 1px #d4d4d4b3;
+}

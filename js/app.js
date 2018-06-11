@@ -121,8 +121,22 @@ function compare(currentCard, previousCard) {
 // Check if the game is finished
 function isOver() {
     if(matchedCards.length === pictures.length) {
-        alert("GAME COMPLETED!")
 
+        // Select the Moves 
+        const modalMoves = document.querySelector("#moves");
+        // Change its value to the user moves
+        modalMoves = moves;
+      
+        // Select Time
+        const modalTimer = document.querySelector(".timer");
+        // Change its value to the user time
+        modalTimer = totalSeconds;
+      
+        // Select Rating
+        const modalRating = document.querySelector(".stars");
+        // Change its value to the user rating
+        modalRating = starsContainer.innerHTML;
+      
         // Stop timer
         stopTimer();
     }

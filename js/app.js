@@ -122,24 +122,28 @@ function compare(currentCard, previousCard) {
 function isOver() {
     if(matchedCards.length === pictures.length) {
 
-        // Select the Moves 
-        const modalMoves = document.querySelector("#moves");
-        // Change its value to the user moves
-        modalMoves = moves;
-      
-        // Select Time
-        const modalTimer = document.querySelector(".timer");
-        // Change its value to the user time
-        modalTimer = totalSeconds;
-      
-        // Select Rating
-        const modalRating = document.querySelector(".stars");
-        // Change its value to the user rating
-        modalRating = starsContainer.innerHTML;
-      
-        // Stop timer
-        stopTimer();
+        // If the game is finished display modal
+        gameOverMessage();
     }
+}
+
+// Game Over Message Modal
+function gameOverMessage() {
+    // Display modal
+    modal.style.top = "0";
+
+    // Select the Moves 
+    const modalMoves = document.querySelector("#moves");
+    // Change its value to the user moves
+    modalMoves = moves;
+
+    // Stop Timer
+    stopTimer();
+}
+
+// Stop timer
+function stopTimer() {
+    clearInterval(incrementer);
 }
 
 // adding the moves to the game

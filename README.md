@@ -13,11 +13,6 @@ This is the second project from Udacity FEND Nanodegree. This project represents
 * Keep the cards in memory
 * Match the cards with less moves and time
 
-## Contributing
-
-This project represents the knowledge gained in second part of Nanodegree, but the game can be more interactive and improved.
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
-
 ## How the project was built
 * I used the basic informations and code from Udacity Sample Project and I manipulated the DOM and altereted the HTML
 * I created the deck of 16 cards

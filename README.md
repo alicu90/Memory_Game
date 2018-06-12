@@ -5,7 +5,6 @@ This is the second project from Udacity FEND Nanodegree. This project represents
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
 
 ## Instructions
 
@@ -21,4 +20,8 @@ This is the second project from Udacity FEND Nanodegree. This project represents
 * I created the timer
 * I added effects when the cards are matched
 * I used the pop-up modal to congrats the user when finish the game
+
+## Dependencies
+
+This game use google font "Awesome" and bootstrap for responsive design.
 

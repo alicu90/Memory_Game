@@ -129,8 +129,9 @@ function isOver() {
 
 // Game Over Message Modal
 function gameOverMessage() {
-    // Display modal
-    modal.style.top = "0";
+
+    // Display modal box
+    modal.style.display = "block";
 
     // Select the Moves 
     const modalMoves = document.querySelector("#moves");
@@ -164,12 +165,12 @@ const star = `<li><i class="fa fa-star"></i></li>`;
 starsContainer.innerHTML = star + star + star;
 function rating() {
 
-    if( moves < 12) {
-        starsContainer.innerHTML = star + star + star;
-    } else if( moves < 18) {
+    if( moves > 18) {
+        starsContainer.innerHTML = star;
+    } else if( moves > 12) {
         starsContainer.innerHTML = star + star;
     } else {
-        starsContainer.innerHTML = star;
+        starsContainer.innerHTML = star + star + star;
     }
 }
 

@@ -129,7 +129,7 @@ h1 {
 
 .modal {
   display: none;
-  position: absolute;
+  position: fixed;
 }
 
 .modal .inner {

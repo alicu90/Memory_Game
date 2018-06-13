@@ -1,7 +1,24 @@
 /*
  * Create a list that holds all of your cards
  */
-const pictures = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+const pictures = [
+    "fa fa-diamond",
+    "fa fa-diamond",
+    "fa fa-paper-plane-o",
+    "fa fa-paper-plane-o",
+    "fa fa-anchor",
+    "fa fa-anchor",
+    "fa fa-bolt",
+    "fa fa-bolt",
+    "fa fa-cube",
+    "fa fa-cube",
+    "fa fa-leaf",
+    "fa fa-leaf",
+    "fa fa-bicycle",
+    "fa fa-bicycle",
+    "fa fa-bomb",
+    "fa fa-bomb"];
+    
 let cards = [];
 
 let openedCards = [];
@@ -118,6 +135,11 @@ function compare(currentCard, previousCard) {
 
 }
 
+// Stop Timer
+function stopTimer() {
+    clearInterval(incrementer);
+}
+
 // Check if the game is finished
 function isOver() {
     if(matchedCards.length === pictures.length) {
@@ -136,7 +158,7 @@ function gameOverMessage() {
     modal.style.display = "block";
 
     // Select the Moves 
-    const modalMoves = document.querySelector("#moves");
+    const modalMoves = document.querySelector("moves");
     // Change its value to the user moves
     modalMoves = moves;
 
@@ -205,6 +227,8 @@ restartBtn.addEventListener("click", function() {
 
 // Reset All Variables
 function reset() {
+    // Reset opened cards
+    openedCards = [];
 
     // Delete cards
     cardsContainer.innerHTML = "";

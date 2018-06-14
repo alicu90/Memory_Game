@@ -135,11 +135,6 @@ function compare(currentCard, previousCard) {
 
 }
 
-// Stop Timer
-function stopTimer() {
-    clearInterval(incrementer);
-}
-
 // Check if the game is finished
 function isOver() {
     if(matchedCards.length === pictures.length) {

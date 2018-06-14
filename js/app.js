@@ -168,7 +168,7 @@ function gameOverMessage() {
 
 // Stop timer
 function stopTimer() {
-    clearInterval(incrementer);
+    clearInterval(liveTimer);
 }
 
 // adding the moves to the game

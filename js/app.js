@@ -153,7 +153,7 @@ function gameOverMessage() {
     modal.style.display = "block";
 
     // Select the Moves 
-    const modalMoves = document.querySelector("moves");
+    const modalMoves = document.querySelector("#moves");
     // Change its value to the user moves
     modalMoves = moves;
 

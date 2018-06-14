@@ -26,6 +26,8 @@ let matchedCards = [];
 
 const cardsContainer = document.querySelector(".deck");
 const timerContainer = document.querySelector(".timer");
+const repeatBtn = document.querySelector(".features .play-again");
+const repeatBtnFromModal = document.querySelector(".modal .play-again");
 let liveTimer,
     totalSeconds = 0;
 
@@ -156,6 +158,16 @@ function gameOverMessage() {
     const modalMoves = document.querySelector("#moves");
     // Change its value to the user moves
     modalMoves.innerHTML = `${moves} moves to complete!`;
+
+    // Select the time
+    const modalSeconds = document.querySelector('#totalSeconds');
+    // Change time value to the user seconds
+    modalSeconds.innerHTML = `${totalSeconds} seconds to complete!`;
+
+    // Select the time
+    const modalRate = document.querySelector('#star');
+    // Change time value to the user seconds
+    modalRate.innerHTML = `${star} stars!`;
 
     // Stop Timer
     stopTimer();

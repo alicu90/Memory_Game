@@ -2,12 +2,9 @@
 
 This is the second project from Udacity FEND Nanodegree. This project represents a game with 8 pairs of cards with different icons. 
 
-## Table of Contents
-
-* [Instructions](#instructions)
-
 ## Instructions
 
+* Open the [live preview](https://alicu90.github.io/Memory_Game/)
 * Click two cards
 * Keep the cards in memory
 * Match the cards with less moves and time

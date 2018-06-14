@@ -155,7 +155,7 @@ function gameOverMessage() {
     // Select the Moves 
     const modalMoves = document.querySelector("#moves");
     // Change its value to the user moves
-    modalMoves = moves;
+    modalMoves.innerHTML = `${moves} moves to complete!`;
 
     // Stop Timer
     stopTimer();

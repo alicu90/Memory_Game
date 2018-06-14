@@ -171,6 +171,13 @@ function gameOverMessage() {
 
     // Stop Timer
     stopTimer();
+
+    document.querySelector(".init").addEventListener("click", function() {
+
+        reset();
+        modal.style.display = "none";
+    
+    });
 }
 
 // Stop timer
